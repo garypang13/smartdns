@@ -297,6 +297,12 @@ load_service()
 	config_get serve_expired "$section" "serve_expired" "0"
 	[ "$serve_expired" = "1" ] && conf_append "serve-expired" "yes"
 
+	config_get anti_ad "$section" "anti_ad" "0"
+	[ "$anti_ad" = "1" ] && {
+	conf_append "conf-file" "/etc/smartdns/anti-ad-smartdns.conf"
+	wget -O /etc/smartdns/anti-ad-smartdns.conf https://anti-ad.net/anti-ad-for-smartdns.conf
+	}
+
 	SMARTDNS_PORT="$port"
 
 	config_get cache_size "$section" "cache_size" ""
